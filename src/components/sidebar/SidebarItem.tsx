@@ -1,7 +1,8 @@
-import { useContext, ReactNode } from "react";
+import { ReactNode, useContext } from 'react';
 
-import { SidebarContext } from "./SidebarGroup";
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
+
+import { SidebarContext } from './SidebarGroup';
 
 export interface ISidebarItemProps {
   icon: ReactNode;
@@ -15,18 +16,11 @@ export interface ISidebarItemProps {
 /**
  * SidebarItem component is a single item in the sidebar navigation.
  */
-const SidebarItem = ({
-  icon,
-  text,
-  active,
-  alert,
-  onClick,
-  disabled,
-}: ISidebarItemProps) => {
+const SidebarItem = ({ icon, text, active, alert, onClick, disabled }: ISidebarItemProps) => {
   const context = useContext(SidebarContext);
 
   if (!context) {
-    throw new Error("SidebarItem must be used within a Sidebar component");
+    throw new Error('SidebarItem must be used within a Sidebar component');
   }
 
   const { expanded } = context;
@@ -34,23 +28,23 @@ const SidebarItem = ({
   return (
     <li
       className={cn({
-        "pointer-events-none cursor-none opacity-50": disabled,
+        'pointer-events-none cursor-none opacity-50': disabled,
       })}
     >
       <button
-        onClick={onClick}
         className={cn(
-          "group relative my-1.5 flex w-fit cursor-pointer items-center gap-2 rounded-xl px-3 py-3.5 text-left font-medium capitalize text-muted-foreground transition-all hover:bg-accent/80",
-          { "bg-accent text-primary": active }
+          'group relative my-1.5 flex w-fit cursor-pointer items-center gap-2 rounded-xl px-3 py-3.5 text-left font-medium capitalize text-muted-foreground transition-all hover:bg-accent/80',
+          { 'bg-accent text-primary': active }
         )}
+        onClick={onClick}
       >
         {icon}
 
         {/* Text is shown when the sidebar is expanded and hidden when the sidebar is not expanded.*/}
         <span
           className={cn(
-            "overflow-hidden text-nowrap transition-all text-foreground",
-            expanded ? "ml-4 w-44" : "-ml-2 w-0"
+            'overflow-hidden text-nowrap text-foreground transition-all',
+            expanded ? 'ml-4 w-44' : '-ml-2 w-0'
           )}
         >
           {text}
@@ -59,10 +53,7 @@ const SidebarItem = ({
         {/* Alert indicator */}
         {alert && (
           <div
-            className={cn(
-              "absolute right-2 h-2 w-2 rounded bg-primary",
-              expanded ? "" : "top-2"
-            )}
+            className={cn('absolute right-2 h-2 w-2 rounded bg-primary', expanded ? '' : 'top-2')}
           />
         )}
 

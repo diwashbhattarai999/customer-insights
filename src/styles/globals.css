@@ -92,11 +92,11 @@
 /* Custom Scrollbar Styles */
 @layer utilities {
   ::-webkit-scrollbar {
-    @apply w-2 h-2; /* Width and height */
+    @apply h-2 w-2; /* Width and height */
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground rounded; /* Thumb color and border radius */
+    @apply rounded bg-muted-foreground; /* Thumb color and border radius */
   }
 
   ::-webkit-scrollbar-thumb:hover {

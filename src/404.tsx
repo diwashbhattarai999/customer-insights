@@ -1,5 +1,6 @@
-import { Link } from "react-router";
-import { Search } from "lucide-react";
+import { Link } from 'react-router';
+
+import { Search } from 'lucide-react';
 
 export default function NotFound() {
   return (
@@ -10,13 +11,12 @@ export default function NotFound() {
           404 Not Found
         </h1>
         <p className="mt-4 text-muted-foreground">
-          Sorry, we couldn’t find the page you were looking for. It may have
-          been moved or deleted.
+          Sorry, we couldn’t find the page you were looking for. It may have been moved or deleted.
         </p>
         <div className="mt-6">
           <Link
-            to="/"
             className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            to="/"
           >
             Return to Home
           </Link>

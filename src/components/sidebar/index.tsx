@@ -1,9 +1,9 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from 'react-router';
 
-import useMenuLinks from "@/hooks/use-menu-links";
+import useMenuLinks from '@/hooks/use-menu-links';
 
-import SidebarGroup from "./SidebarGroup";
-import SidebarItem from "./SidebarItem";
+import SidebarGroup from './SidebarGroup';
+import SidebarItem from './SidebarItem';
 
 const Sidebar = () => {
   const { pathname } = useLocation();
@@ -14,12 +14,12 @@ const Sidebar = () => {
     <SidebarGroup>
       {MENU_LINKS.map((item, index) => {
         return (
-          <Link to={item.path} key={index}>
+          <Link key={index} to={item.path}>
             <SidebarItem
-              icon={item.icon}
-              text={item.text}
               active={item.path === pathname}
               alert={item.alert}
+              icon={item.icon}
+              text={item.text}
             />
           </Link>
         );

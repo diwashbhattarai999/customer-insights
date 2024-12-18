@@ -1,4 +1,4 @@
-export interface Aggregation {
+export interface IAggregation {
   wow_change: number;
   average_revenue: {
     current: number;

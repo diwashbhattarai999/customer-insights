@@ -1,8 +1,10 @@
-import { createContext, useState, ReactNode, useLayoutEffect } from "react";
-import { ChevronRight } from "lucide-react";
+import { createContext, ReactNode, useLayoutEffect, useState } from 'react';
 
-import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
+import { ChevronRight } from 'lucide-react';
+
+import { cn } from '@/lib/utils';
+
+import { Button } from '../ui/button';
 
 export const SidebarContext = createContext<{ expanded: boolean }>({
   expanded: true,
@@ -20,14 +22,18 @@ const SidebarGroup = ({ children }: ISidebarGroupProps) => {
   const [loading, setLoading] = useState(true);
 
   useLayoutEffect(() => {
-    const handleResize = () => setExpanded(window.innerWidth >= 1200);
+    const handleResize = () => {
+      setExpanded(window.innerWidth >= 1200);
+    };
 
     handleResize(); // Set initial state
     setLoading(false); // Hide loading state
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   if (loading) return null;
@@ -36,20 +42,22 @@ const SidebarGroup = ({ children }: ISidebarGroupProps) => {
     <aside className="sticky inset-0 z-40 hidden h-screen md:block">
       <nav className="flex h-full w-fit flex-col bg-sidebar px-[18px] py-6 shadow-sm">
         <div
-          className={cn("relative flex items-center pb-10", {
-            "justify-between": expanded,
+          className={cn('relative flex items-center pb-10', {
+            'justify-between': expanded,
           })}
         >
           <div
             className={cn(
-              "mt-1.5 ml-1.5 w-full transition-all text-2xl font-semibold text-foreground/80"
+              'ml-1.5 mt-1.5 w-full text-2xl font-semibold text-foreground/80 transition-all'
             )}
           >
-            {expanded ? "Customer Insights" : "CI"}
+            {expanded ? 'Customer Insights' : 'CI'}
           </div>
           <ToggleButton
             expanded={expanded}
-            onClick={() => setExpanded((curr) => !curr)}
+            onClick={() => {
+              setExpanded((curr) => !curr);
+            }}
           />
         </div>
         <SidebarContext.Provider value={{ expanded }}>
@@ -60,24 +68,18 @@ const SidebarGroup = ({ children }: ISidebarGroupProps) => {
   );
 };
 
-const ToggleButton = ({
-  expanded,
-  onClick,
-}: {
-  expanded: boolean;
-  onClick: () => void;
-}) => (
+const ToggleButton = ({ expanded, onClick }: { expanded: boolean; onClick: () => void }) => (
   <Button
-    onClick={onClick}
     className={cn(
-      "absolute -right-8 top-1.5 hidden rounded-lg border border-solid border-border bg-muted hover:bg-foreground/10 transition-all p-1 h-auto text-muted-foreground lg:block 3xl:hidden"
+      '3xl:hidden absolute -right-8 top-1.5 hidden h-auto rounded-lg border border-solid border-border bg-muted p-1 text-muted-foreground transition-all hover:bg-foreground/10 lg:block'
     )}
+    onClick={onClick}
   >
     <ChevronRight
-      className={cn("transition-all duration-100 size-6", {
-        "rotate-180": expanded,
-      })}
       size={24}
+      className={cn('size-6 transition-all duration-100', {
+        'rotate-180': expanded,
+      })}
     />
   </Button>
 );

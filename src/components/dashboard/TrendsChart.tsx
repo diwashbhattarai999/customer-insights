@@ -1,11 +1,9 @@
-import React from "react";
-import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import { Trends } from "@/interfaces/Trends";
+import React from 'react';
+
+import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { Trends } from '@/interfaces/Trends';
 
 interface Props {
   trends: Trends;
@@ -20,68 +18,65 @@ const TrendsChart: React.FC<Props> = ({ trends }) => {
 
   return (
     <ChartContainer
+      className="h-[300px] w-full"
       config={{
         revenue: {
-          label: "Revenue",
-          color: "hsl(var(--chart-1))",
+          label: 'Revenue',
+          color: 'hsl(var(--chart-1))',
         },
         customers: {
-          label: "Customers",
-          color: "hsl(var(--chart-2))",
+          label: 'Customers',
+          color: 'hsl(var(--chart-2))',
         },
       }}
-      className="w-full h-[300px]"
     >
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          data={combinedData}
-          margin={{ top: 5, right: 10, left: 10, bottom: 35 }}
-        >
+      <ResponsiveContainer height="100%" width="100%">
+        <LineChart data={combinedData} margin={{ top: 5, right: 10, left: 10, bottom: 35 }}>
           <XAxis
-            dataKey="day"
-            stroke="#888888"
-            fontSize={12}
-            tickLine={false}
-            axisLine={false}
             angle={-45}
-            textAnchor="end"
-            height={70}
-          />
-          <YAxis
-            yAxisId="left"
-            stroke="#888888"
-            fontSize={12}
-            tickLine={false}
             axisLine={false}
-            tickFormatter={(value) => `$${value}`}
+            dataKey="day"
+            fontSize={12}
+            height={70}
+            stroke="#888888"
+            textAnchor="end"
+            tickLine={false}
           />
           <YAxis
-            yAxisId="right"
+            axisLine={false}
+            fontSize={12}
+            stroke="#888888"
+            tickFormatter={(value) => `$${value}`}
+            tickLine={false}
+            yAxisId="left"
+          />
+          <YAxis
+            axisLine={false}
+            fontSize={12}
             orientation="right"
             stroke="#888888"
-            fontSize={12}
             tickLine={false}
-            axisLine={false}
+            yAxisId="right"
           />
           <ChartTooltip content={<ChartTooltipContent />} />
           <Line
-            yAxisId="left"
-            type="monotone"
             dataKey="revenue"
             strokeWidth={2}
+            type="monotone"
+            yAxisId="left"
             activeDot={{
               r: 6,
-              style: { fill: "var(--color-revenue)", opacity: 0.8 },
+              style: { fill: 'var(--color-revenue)', opacity: 0.8 },
             }}
           />
           <Line
-            yAxisId="right"
-            type="monotone"
             dataKey="customers"
             strokeWidth={2}
+            type="monotone"
+            yAxisId="right"
             activeDot={{
               r: 6,
-              style: { fill: "var(--color-customers)", opacity: 0.8 },
+              style: { fill: 'var(--color-customers)', opacity: 0.8 },
             }}
           />
         </LineChart>

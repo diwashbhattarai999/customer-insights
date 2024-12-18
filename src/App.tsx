@@ -1,28 +1,37 @@
-import Layout from "@/Layout";
-import Dashboard from "@/page/dashboard";
-import { ThemeProvider } from "@/components/theme-provider";
-import { BrowserRouter as Router, Routes, Route } from "react-router";
-import { HelmetProvider } from "react-helmet-async";
-import Forbidden from "@/403";
-import ErrorPage from "@/500";
-import NotFound from "./404";
+import { HelmetProvider } from 'react-helmet-async';
+import { BrowserRouter as Router, Route, Routes } from 'react-router';
+
+import Forbidden from '@/403';
+import ErrorPage from '@/500';
+import { ThemeProvider } from '@/components/theme-provider';
+import Layout from '@/Layout';
+import Dashboard from '@/page/dashboard';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import NotFound from './404';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="customer-insights-theme">
       <HelmetProvider>
-        <Router>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/403" element={<Forbidden />} />
-              <Route path="/500" element={<ErrorPage />} />
+        <QueryClientProvider client={queryClient}>
+          <Router>
+            <Layout>
+              <Routes>
+                <Route element={<Dashboard />} path="/" />
+                <Route element={<Forbidden />} path="/403" />
+                <Route element={<ErrorPage />} path="/500" />
 
-              {/* Not Found Route - Redirect to /404 page */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Layout>
-        </Router>
+                {/* Not Found Route - Redirect to /404 page */}
+                <Route element={<NotFound />} path="*" />
+              </Routes>
+            </Layout>
+          </Router>
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        </QueryClientProvider>
       </HelmetProvider>
     </ThemeProvider>
   );

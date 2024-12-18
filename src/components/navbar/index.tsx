@@ -1,8 +1,11 @@
-import { Search, Bell, Settings, User } from "lucide-react";
-import { useState } from "react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Link } from "react-router";
+import { useState } from 'react';
+import { Link } from 'react-router';
+
+import { Bell, Search, Settings, User } from 'lucide-react';
+
+import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu';
+
+import { Button } from '../ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,28 +13,32 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
+} from '../ui/dropdown-menu';
+import { Input } from '../ui/input';
 
 export default function Navbar() {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   return (
-    <div className="flex items-center justify-between py-7 px-10 border-b border-border/30">
+    <div className="flex items-center justify-between border-b border-border/30 px-10 py-7">
       {/* Search Bar */}
-      <div className="flex items-center gap-2 w-full">
+      <div className="flex w-full items-center gap-2">
         <div className="relative w-full max-w-md">
           <Input
-            type="text"
-            placeholder="Search..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
             className="bg-muted/20"
+            placeholder="Search..."
+            type="text"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
           />
         </div>
         <Button
-          onClick={() => console.log("Searching for:", search)}
           className="w-fit"
+          onClick={() => {
+            console.log('Searching for:', search);
+          }}
         >
           Search
           <Search className="size-5" />
@@ -40,32 +47,24 @@ export default function Navbar() {
 
       {/* Actions */}
       <div className="flex items-center space-x-4">
-        <Button
-          variant={"ghost"}
-          className="p-2 rounded-full text-muted-foreground"
-        >
-          <Bell className="w-5 h-5" />
+        <Button className="rounded-full p-2 text-muted-foreground" variant={'ghost'}>
+          <Bell className="h-5 w-5" />
         </Button>
-        <Button
-          variant={"ghost"}
-          className="p-2 rounded-full text-muted-foreground"
-        >
-          <Settings className="w-5 h-5" />
+        <Button className="rounded-full p-2 text-muted-foreground" variant={'ghost'}>
+          <Settings className="h-5 w-5" />
         </Button>
 
         {/* Profile / Avatar */}
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center gap-2 cursor-pointer">
-            <User className="size-10 rounded-full border p-1.5 cursor-pointer" />
+          <DropdownMenuTrigger className="flex cursor-pointer items-center gap-2">
+            <User className="size-10 cursor-pointer rounded-full border p-1.5" />
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" sideOffset={5} className="w-52">
+          <DropdownMenuContent align="end" className="w-52" sideOffset={5}>
             {/* User Detail like name & email */}
             <DropdownMenuLabel>
               <div className="flex flex-col items-start">
-                <span className="font-semibold text-base">John Doe</span>
-                <span className="text-muted-foreground">
-                  diwashb999@gmail.com
-                </span>
+                <span className="text-base font-semibold">John Doe</span>
+                <span className="text-muted-foreground">diwashb999@gmail.com</span>
               </div>
             </DropdownMenuLabel>
 

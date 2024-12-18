@@ -1,4 +1,4 @@
-import { Grid, Settings, Users } from "lucide-react";
+import { Grid, Settings, Users } from 'lucide-react';
 
 /**
  * Define menu links with icons, text, alert state, and path.
@@ -7,21 +7,21 @@ const useMenuLinks = () => {
   return [
     {
       icon: <Grid className="size-6" />,
-      text: "Dashboard",
+      text: 'Dashboard',
       alert: false,
-      path: "/",
+      path: '/',
     },
     {
       icon: <Users className="size-6" />,
-      text: "Customer List",
+      text: 'Customer List',
       alert: false,
-      path: "/customers",
+      path: '/customers',
     },
     {
       icon: <Settings className="size-6" />,
-      text: "Settings",
+      text: 'Settings',
       alert: false,
-      path: "/settings",
+      path: '/settings',
     },
   ];
 };
