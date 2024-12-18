@@ -34,17 +34,18 @@
 
 // export default Dashboard;
 
-
 import React, { useEffect, useState } from "react";
 import CustomersList from "@/components/dashboard/CustomerList";
 import AggregationMetrics from "@/components/dashboard/AggregationMetrics";
 import TrendsChart from "@/components/dashboard/TrendsChart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Aggregation } from "@/interfaces/Aggregation";
+import { Trends } from "@/interfaces/Trends";
 
 const Dashboard: React.FC = () => {
   const [customers, setCustomers] = useState([]);
-  const [aggregation, setAggregation] = useState({});
-  const [trends, setTrends] = useState([]);
+  const [aggregation, setAggregation] = useState<Aggregation>();
+  const [trends, setTrends] = useState<Trends>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,13 +54,18 @@ const Dashboard: React.FC = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [customersResponse, aggregationResponse, trendsResponse] = await Promise.all([
-          fetch("http://localhost:8000/api/customers"),
-          fetch("http://localhost:8000/api/customers/insights"),
-          fetch("http://localhost:8000/api/revenue/trends"),
-        ]);
+        const [customersResponse, aggregationResponse, trendsResponse] =
+          await Promise.all([
+            fetch("http://localhost:8000/api/customers"),
+            fetch("http://localhost:8000/api/customers/insights"),
+            fetch("http://localhost:8000/api/revenue/trends"),
+          ]);
 
-        if (!customersResponse.ok || !aggregationResponse.ok || !trendsResponse.ok) {
+        if (
+          !customersResponse.ok ||
+          !aggregationResponse.ok ||
+          !trendsResponse.ok
+        ) {
           throw new Error("Failed to fetch data");
         }
 
@@ -83,20 +89,22 @@ const Dashboard: React.FC = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
+  console.log(customers);
+
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Dashboard</h1>
-      <AggregationMetrics aggregation={aggregation} />
-      <div className="grid gap-6">
-        <Card className="col-span-full">
+      <AggregationMetrics aggregation={aggregation as Aggregation} />
+      <div className="flex gap-6">
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>Revenue Trends</CardTitle>
           </CardHeader>
-          <CardContent>
-            <TrendsChart trends={trends} />
+          <CardContent className="mt-20">
+            <TrendsChart trends={trends as Trends} />
           </CardContent>
         </Card>
-        <Card className="col-span-full">
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>Customer Overview</CardTitle>
           </CardHeader>

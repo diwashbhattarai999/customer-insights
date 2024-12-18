@@ -3,6 +3,7 @@ import { Customer } from "@/interfaces/Customer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
+import { format } from "date-fns";
 import {
   Table,
   TableBody,
@@ -51,7 +52,7 @@ const CustomersList: React.FC<Props> = ({ customers }) => {
   const filteredCustomers = sortedCustomers.filter(
     (customer) =>
       customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      customer.email.toLowerCase().includes(searchTerm.toLowerCase())
+      customer.email.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const requestSort = (key: keyof Customer) => {
@@ -107,7 +108,7 @@ const CustomersList: React.FC<Props> = ({ customers }) => {
                 <TableCell>{customer.email}</TableCell>
                 <TableCell>{customer.segment}</TableCell>
                 <TableCell>
-                  {new Date(customer.signup_date).toLocaleDateString()}
+                  {format(new Date(customer.signup_date), "MMM dd, yyyy")}
                 </TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>

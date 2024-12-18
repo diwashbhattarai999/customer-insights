@@ -15,7 +15,7 @@ const TrendsChart: React.FC<Props> = ({ trends }) => {
   const combinedData = trends.revenue_trend.map((revenue, index) => ({
     day: revenue.day,
     revenue: revenue.total_revenue,
-    customers: trends.customer_count[index]?.count || 0,
+    customers: trends.customer_count_trend[index]?.count || 0,
   }));
 
   return (
