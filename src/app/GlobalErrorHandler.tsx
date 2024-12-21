@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircle } from 'lucide-react';
 
-import useErrorStore from './store/errorStore';
+import useErrorStore from '../store/errorStore';
 
 const GlobalErrorHandler = () => {
   const { error, clearError } = useErrorStore();

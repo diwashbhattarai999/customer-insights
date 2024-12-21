@@ -114,7 +114,11 @@ const CustomersList = () => {
                 {filteredCustomers.map((customer) => (
                   <TableRow
                     key={customer.customer_id}
-                    onClick={() => navigate(`/customers/${customer.customer_id}`)}
+                    className="cursor-pointer"
+                    onClick={() => {
+                      navigate(`/customers/${customer.customer_id}`);
+                      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                    }}
                   >
                     <TableCell className="font-medium">{customer.customer_id}</TableCell>
                     <TableCell>{customer.name}</TableCell>
