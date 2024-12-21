@@ -8,6 +8,7 @@ import Layout from '@/Layout';
 import Dashboard from '@/page/dashboard';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+import CustomerDetails from './page/customer/customer-details';
 import NotFound from './404';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -22,6 +23,9 @@ function App() {
             <Layout>
               <Routes>
                 <Route element={<Dashboard />} path="/" />
+                <Route element={<CustomerDetails />} path="/customers/:id" />
+
+                {/* Error Pages */}
                 <Route element={<Forbidden />} path="/403" />
                 <Route element={<ErrorPage />} path="/500" />
 

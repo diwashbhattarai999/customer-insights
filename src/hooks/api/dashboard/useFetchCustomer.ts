@@ -1,4 +1,4 @@
-import { ICustomer } from '@/interfaces/Customer';
+import { ICustomer } from '@/interfaces/dashboard/Customer';
 import { api } from '@/lib/api-client';
 import { useSuspenseQuery } from '@tanstack/react-query';
 

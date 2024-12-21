@@ -1,4 +1,4 @@
-import { IAggregation } from '@/interfaces/Aggregation';
+import { IAggregation } from '@/interfaces/dashboard/Aggregation';
 import { api } from '@/lib/api-client';
 import { useSuspenseQuery } from '@tanstack/react-query';
 

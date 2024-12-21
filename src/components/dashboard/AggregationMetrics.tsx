@@ -1,13 +1,9 @@
-import React from 'react';
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Aggregation } from '@/interfaces/Aggregation';
+import { useFetchAggregation } from '@/hooks/api/dashboard/useFetchAggregation';
 
-interface Props {
-  aggregation: Aggregation;
-}
+const AggregationMetrics = () => {
+  const { data: aggregation } = useFetchAggregation();
 
-const AggregationMetrics: React.FC<Props> = ({ aggregation }) => {
   const { wow_change, average_revenue, current_week_customers, last_week_customers } = aggregation;
 
   return (

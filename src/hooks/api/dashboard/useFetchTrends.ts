@@ -1,4 +1,4 @@
-import { ITrends } from '@/interfaces/Trends';
+import { ITrends } from '@/interfaces/dashboard/Trends';
 import { api } from '@/lib/api-client';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
