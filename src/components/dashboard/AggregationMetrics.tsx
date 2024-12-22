@@ -10,7 +10,7 @@ const AggregationMetrics = () => {
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Product Usage</CardTitle>
+          <CardTitle className="text-sm font-medium">Current Week customers</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{current_week_customers}</div>
@@ -20,7 +20,7 @@ const AggregationMetrics = () => {
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Last Week's Usage</CardTitle>
+          <CardTitle className="text-sm font-medium">Last Week's customers</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{last_week_customers}</div>
@@ -46,6 +46,13 @@ const AggregationMetrics = () => {
         <CardContent>
           <div className="text-2xl font-bold">${average_revenue.current.toFixed(2)}</div>
           <p className="text-xs text-muted-foreground">Per customer</p>
+          <p
+            className={`text-xs ${average_revenue.revenue_change_percentage >= 0 ? 'text-green-500' : 'text-red-500'}`}
+          >
+            {average_revenue.revenue_change_percentage >= 0 ? 'Increase' : 'Decrease'} from last
+            week:
+            <span>{Math.abs(average_revenue.revenue_change_percentage).toFixed(2)}%</span>
+          </p>
         </CardContent>
       </Card>
       <Card>
