@@ -1,5 +1,5 @@
+import { CustomersList } from './customer-list/CustomerList';
 import { CustomerInsightsCards } from './CustomerInsightsCards';
-import { CustomersList } from './CustomerList';
 import { ProductUsage } from './ProductUsage';
 import { RevenueTrends } from './RevenueTrends';
 

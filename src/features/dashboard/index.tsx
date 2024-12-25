@@ -9,7 +9,6 @@ import {
 } from '@/features/dashboard/components';
 import {
   CustomerInsightsSkeleton,
-  CustomerListSkeleton,
   RevenueTrendsSkeleton,
 } from '@/features/dashboard/components/skeletons';
 
@@ -42,9 +41,7 @@ const Dashboard = () => {
 
         {/* Customers List */}
         <TabsContent value="customers">
-          <Suspense fallback={<CustomerListSkeleton />}>
-            <CustomersList />
-          </Suspense>
+          <CustomersList />
         </TabsContent>
 
         {/* Product Usage */}

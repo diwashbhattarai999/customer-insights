@@ -11,8 +11,8 @@ import {
 import { useFetchCustomerDetails } from '@/features/customer/hooks/useFetchCustomerDetails';
 
 const CustomerDetails = () => {
-  const { id } = useParams<{ id: string }>();
-  const { data } = useFetchCustomerDetails(id || '');
+  const { customerId } = useParams<{ customerId: string }>();
+  const { data } = useFetchCustomerDetails({ customerId: customerId || '' });
   const { personalInfo, servicesUsed, recommendedService, churnProbability, productRisk } = data;
 
   return (
@@ -29,7 +29,7 @@ const CustomerDetails = () => {
       <div className="grid gap-4 md:grid-cols-2">
         <ProductRisk productRisk={productRisk} />
 
-        <Transactions customerId={id || ''} />
+        <Transactions customerId={customerId || ''} />
       </div>
     </div>
   );

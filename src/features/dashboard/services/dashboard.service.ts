@@ -8,8 +8,18 @@ import { api } from '@/lib/api-client';
  * Fetches the customers from the API
  * @returns {Promise<Array<ICustomerDetails>>} The customers
  */
-export const fetchCustomers = async ({ segment }: { segment?: TSegment }): Promise<ICustomer> => {
-  const { data } = await api.get<ICustomer>('/customers', { params: { segment } });
+export const fetchCustomers = async ({
+  segment,
+  customer_name,
+  period,
+}: {
+  segment?: TSegment;
+  customer_name?: string;
+  period?: Exclude<TPeriod, 'year'>;
+}): Promise<ICustomer> => {
+  const { data } = await api.get<ICustomer>('/customers', {
+    params: { segment, customer_name, period },
+  });
   return data;
 };
 

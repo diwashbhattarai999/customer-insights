@@ -14,7 +14,7 @@ import {
 } from '@/interfaces/customers/CustomerDetails';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-export const useFetchCustomerDetails = (customerId: string | number) => {
+export const useFetchCustomerDetails = ({ customerId }: { customerId: string | number }) => {
   const {
     data: personalInfo,
     isLoading: isLoadingPersonalInfo,

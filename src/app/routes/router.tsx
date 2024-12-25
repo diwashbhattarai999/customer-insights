@@ -18,7 +18,7 @@ const router = createBrowserRouter(
     <Route element={<App />} path="/">
       <Route element={<MainLayout />}>
         <Route element={<Dashboard />} path="/" />
-        <Route element={<CustomerDetails />} path="/customers/:id" />
+        <Route element={<CustomerDetails />} path="/customers/:customerId" />
         <Route element={<CustomerList />} path="/customers" />
 
         {/* Error Pages */}
