@@ -1,14 +1,9 @@
 import { ICustomer } from '@/interfaces/dashboard/Customer';
-import { api } from '@/lib/api-client';
+import { fetchCustomers } from '@/services/dashboard.service';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-const fetchCustomers = async () => {
-  const { data } = await api.get('/customers');
-  return data;
-};
-
 export const useFetchCustomers = () => {
-  return useSuspenseQuery<Array<ICustomer>>({
+  return useSuspenseQuery<ICustomer>({
     queryKey: ['customers'],
     queryFn: fetchCustomers,
   });

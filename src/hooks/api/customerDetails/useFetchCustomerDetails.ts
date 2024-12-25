@@ -6,43 +6,17 @@ import {
   IServiceUsed,
   ITransaction,
 } from '@/interfaces/customers/CustomerDetails';
-import { api } from '@/lib/api-client';
+import {
+  fetchChurnProbability,
+  fetchPersonalInfo,
+  fetchProductRisk,
+  fetchRecommendedService,
+  fetchServicesUsed,
+  fetchTransactions,
+} from '@/services/customer.details.service';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-const fetchPersonalInfo = async (customerId: string | number) => {
-  const response = await api.get<IPersonalInfo>(`/customer/${customerId}/personal_info`);
-  return response.data;
-};
-
-const fetchServicesUsed = async (customerId: string | number) => {
-  const response = await api.get<IServiceUsed>(`/customer/${customerId}/services_used`);
-  return response.data;
-};
-
-const fetchRecommendedService = async (customerId: string | number) => {
-  const response = await api.get<IRecommendedService>(
-    `/customer/${customerId}/recommended_service`
-  );
-  return response.data;
-};
-
-const fetchChurnProbability = async (customerId: string | number) => {
-  const response = await api.get<IChurnProbability>(`/customer/${customerId}/churn_probability`);
-  return response.data;
-};
-
-const fetchTransactions = async (customerId: string | number) => {
-  const response = await api.get<Array<ITransaction>>(`/customer/${customerId}/transactions`);
-  return response.data;
-};
-
-const fetchProductRisk = async (customerId: string | number) => {
-  const response = await api.get<IProductRisk>(`/customer/${customerId}/product_risk`);
-  return response.data;
-};
-
-// useCustomerDetails hook using TanStack React Query
-export const useCustomerDetails = (customerId: string | number) => {
+export const useFetchCustomerDetails = (customerId: string | number) => {
   const {
     data: personalInfo,
     isLoading: isLoadingPersonalInfo,
@@ -83,7 +57,7 @@ export const useCustomerDetails = (customerId: string | number) => {
     data: transactions,
     isLoading: isLoadingTransactions,
     error: errorTransactions,
-  } = useSuspenseQuery<Array<ITransaction>>({
+  } = useSuspenseQuery<ITransaction>({
     queryKey: ['customer', customerId, 'transactions'],
     queryFn: () => fetchTransactions(customerId),
   });

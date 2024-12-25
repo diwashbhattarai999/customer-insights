@@ -17,7 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { useProductUsage } from '@/hooks/api/dashboard/useProductUsage';
+import { useFetchProductUsage } from '@/hooks/api/dashboard/useFetchProductUsage';
 
 const chartConfig = {
   users: {
@@ -67,7 +67,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 const ProductUsage = () => {
-  const { data: usageData, isLoading, error } = useProductUsage();
+  const { data: usageData, isLoading, error } = useFetchProductUsage();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading product usage data</div>;

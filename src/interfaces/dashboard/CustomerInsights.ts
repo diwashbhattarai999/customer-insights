@@ -1,4 +1,4 @@
-export interface IAggregation {
+export interface ICustomerInsights {
   wow_change: number;
   average_revenue: {
     current: number;

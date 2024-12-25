@@ -8,7 +8,7 @@ import {
   ServicesUsed,
   Transactions,
 } from '@/components/customer-details';
-import { useCustomerDetails } from '@/hooks/api/customerDetails/useCustomerDetails';
+import { useCustomerDetails } from '@/hooks/api/customerDetails/useFetchCustomerDetails';
 
 const CustomerDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,7 +35,7 @@ const CustomerDetails = () => {
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         <ProductRisk productRisk={productRisk} />
-        <Transactions transactions={transactions} />
+        <Transactions transactionData={transactions} />
       </div>
     </div>
   );

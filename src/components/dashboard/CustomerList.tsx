@@ -38,7 +38,7 @@ const CustomersList = () => {
   const { data: customers } = useFetchCustomers();
 
   const sortedCustomers = useMemo(() => {
-    const sortableCustomers = [...customers];
+    const sortableCustomers = customers ? [...customers] : [];
     if (sortConfig !== null) {
       sortableCustomers.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {

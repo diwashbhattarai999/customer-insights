@@ -1,11 +1,6 @@
-import { ITrends } from '@/interfaces/dashboard/Trends';
-import { api } from '@/lib/api-client';
+import { ITrends } from '@/interfaces/dashboard/RevenueTrends';
+import { fetchTrends } from '@/services/dashboard.service';
 import { useSuspenseQuery } from '@tanstack/react-query';
-
-const fetchTrends = async () => {
-  const { data } = await api.get('/revenue/trends');
-  return data;
-};
 
 export const useFetchTrends = () => {
   return useSuspenseQuery<ITrends>({

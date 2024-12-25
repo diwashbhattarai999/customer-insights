@@ -32,14 +32,36 @@ export interface IChurnProbability {
 }
 
 export interface ITransaction {
-  transaction_id: number;
-  transaction_date: string;
-  amount: number;
-  is_anomalous: boolean;
+  summary: {
+    total_transactions: number;
+    total_amount: number;
+    anomalous_transactions: number;
+    period: 'all' | 'day' | 'week' | 'month' | 'year';
+  };
+  transactions: Array<{
+    transaction_id: number;
+    transaction_date: string;
+    amount: number;
+    is_anomalous: boolean;
+    product_name: string;
+    product_category: 'Banking' | 'Deposit';
+  }>;
 }
 
 export interface IProductRisk {
-  'Mobile Banking': number;
+  MobileBanking: number;
   Loans: number;
   Deposits: number;
+}
+
+export interface ISegmentation {
+  segmentation: 'High';
+}
+
+export interface IProduct {
+  product_id: number;
+  name: string;
+  description: string;
+  category: 'Loan';
+  risk_factor: number;
 }

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useFetchAggregation } from '@/hooks/api/dashboard/useFetchAggregation';
+import { useFetchAggregation } from '@/hooks/api/dashboard/useFetchCustomerInsights';
 
 const AggregationMetrics = () => {
   const { data: aggregation } = useFetchAggregation();

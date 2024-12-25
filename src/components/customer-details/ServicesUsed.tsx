@@ -22,7 +22,6 @@ const COLORS = [
 ];
 
 const ServicesUsed = ({ deposits, loans, mobile_banking }: IServiceUsed) => {
-  // Hardcoded data for testing
   const chartData = [
     {
       name: 'Mobile Banking',

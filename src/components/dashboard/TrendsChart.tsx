@@ -10,11 +10,15 @@ const TrendsChart = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading trends</div>;
 
-  const combinedData = trends.revenue_trend.map((revenue, index) => ({
-    day: revenue.day,
-    revenue: revenue.total_revenue,
-    customers: trends.customer_count_trend[index]?.count || 0,
-  }));
+  // Map the revenue and customer trends data into a combined structure
+  const combinedData = trends?.revenue_trends.revenue_by_period.map((revenue, index) => {
+    const customerTrend = trends.customer_trends.count_trend[index];
+    return {
+      day: revenue.period,
+      revenue: revenue.total_revenue,
+      customers: customerTrend ? customerTrend.cumulative_customers : 0,
+    };
+  });
 
   return (
     <Card className="w-full">
