@@ -1,6 +1,6 @@
 import { CustomerInsightsCards } from './CustomerInsightsCards';
 import { CustomersList } from './CustomerList';
-import ProductUsageChart from './ProductUsage';
+import { ProductUsage } from './ProductUsage';
 import { RevenueTrends } from './RevenueTrends';
 
-export { CustomerInsightsCards, CustomersList, ProductUsageChart, RevenueTrends };
+export { CustomerInsightsCards, CustomersList, ProductUsage, RevenueTrends };

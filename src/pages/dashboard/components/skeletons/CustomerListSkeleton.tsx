@@ -8,7 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-const CustomerListSkeleton = () => (
+export const CustomerListSkeleton = () => (
   <div className="max-h-96 w-full overflow-auto">
     <Table className="w-full">
       <TableHeader>
@@ -60,5 +60,3 @@ const CustomerListSkeleton = () => (
     </Table>
   </div>
 );
-
-export default CustomerListSkeleton;

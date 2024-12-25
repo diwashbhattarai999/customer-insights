@@ -1,7 +1,7 @@
 'use client';
 
 import { TrendingUp } from 'lucide-react';
-import { Bar, BarChart, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis } from 'recharts';
 
 import {
   Card,
@@ -11,74 +11,20 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/components/ui/chart';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { useFetchProductUsage } from '@/pages/dashboard/hooks/useFetchProductUsage';
 
-const chartConfig = {
-  users: {
-    label: 'Users',
-    color: 'hsl(var(--chart-1))',
-  },
-  'Student Loan': {
-    label: 'Student Loan',
-    color: 'hsl(var(--chart-1))',
-  },
-  'Savings Plan': {
-    label: 'Savings Plan',
-    color: 'hsl(var(--chart-2))',
-  },
-  'Savings Account': {
-    label: 'Savings Account',
-    color: 'hsl(var(--chart-3))',
-  },
-  'Personal Loan': {
-    label: 'Personal Loan',
-    color: 'hsl(var(--chart-4))',
-  },
-  'Mobile Banking': {
-    label: 'Mobile Banking',
-    color: 'hsl(var(--chart-5))',
-  },
-  'Home Loan': {
-    label: 'Home Loan',
-    color: 'hsl(var(--chart-6))',
-  },
-  'Fixed Deposit': {
-    label: 'Fixed Deposit',
-    color: 'hsl(var(--chart-7))',
-  },
-  'Credit Card': {
-    label: 'Credit Card',
-    color: 'hsl(var(--chart-8))',
-  },
-  'Car Loan': {
-    label: 'Car Loan',
-    color: 'hsl(var(--chart-9))',
-  },
-  'Business Loan': {
-    label: 'Business Loan',
-    color: 'hsl(var(--chart-10))',
-  },
-} satisfies ChartConfig;
+export const ProductUsage = () => {
+  const { data: usageData } = useFetchProductUsage();
 
-const ProductUsage = () => {
-  const { data: usageData, isLoading, error } = useFetchProductUsage();
+  const chartData = Object.entries(usageData ?? {})
+    .map(([name, value]) => ({
+      name,
+      usage: value,
+    }))
+    .sort((a, b) => b.usage - a.usage);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading product usage data</div>;
-
-  const chartData = Object.entries(usageData).map(([name, value]) => ({
-    product: name,
-    users: value,
-    fill: chartConfig[name as keyof typeof chartConfig].color,
-  }));
-
-  const totalUsers = chartData.reduce((sum, item) => sum + item.users, 0);
+  const totalUsers = chartData.reduce((acc, { usage }) => acc + usage, 0);
 
   return (
     <Card className="w-full">
@@ -89,7 +35,7 @@ const ProductUsage = () => {
       <CardContent>
         <ChartContainer
           className="[&_.recharts-cartesian-axis-tick-value]:whitespace-nowrap"
-          config={chartConfig}
+          config={{}}
         >
           <BarChart
             accessibilityLayer
@@ -97,23 +43,26 @@ const ProductUsage = () => {
             layout="vertical"
             margin={{
               left: 0,
-              right: 30,
-              top: 5,
-              bottom: 5,
+              right: 50,
+              top: 0,
+              bottom: 0,
             }}
           >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis type="number" />
             <YAxis
               axisLine={false}
-              dataKey="product"
-              tickFormatter={(value) => chartConfig[value as keyof typeof chartConfig]?.label}
+              dataKey="name"
               tickLine={false}
               tickMargin={10}
               type="category"
-              width={110}
+              width={150}
             />
-            <XAxis hide dataKey="users" type="number" />
+            <Tooltip content={<ChartTooltipContent />} />
+            <Legend />
+            <XAxis hide dataKey="usage" type="number" />
             <ChartTooltip content={<ChartTooltipContent hideLabel />} cursor={false} />
-            <Bar dataKey="users" layout="vertical" radius={5} />
+            <Bar dataKey="usage" fill="#8884d895" radius={5} />
           </BarChart>
         </ChartContainer>
       </CardContent>
@@ -128,5 +77,3 @@ const ProductUsage = () => {
     </Card>
   );
 };
-
-export default ProductUsage;
