@@ -24,6 +24,7 @@ import {
 import { useFetchCustomers } from '@/features/dashboard/hooks/useFetchCustomer';
 import { ICustomerDetails, TSegment } from '@/interfaces/dashboard/Customer';
 import { TPeriod } from '@/interfaces/dashboard/CustomerInsights';
+import { cn } from '@/lib/utils';
 
 interface CustomersTableProps {
   segmentFilter: TSegment | 'All';
@@ -31,6 +32,7 @@ interface CustomersTableProps {
   searchTerm: string;
   sortConfig: { key: keyof ICustomerDetails; direction: 'asc' | 'desc' } | null;
   requestSort: (key: keyof ICustomerDetails) => void;
+  className?: string;
 }
 
 export const CustomersTable = ({
@@ -39,6 +41,7 @@ export const CustomersTable = ({
   searchTerm,
   sortConfig,
   requestSort,
+  className,
 }: CustomersTableProps) => {
   const navigate = useNavigate();
 
@@ -70,7 +73,7 @@ export const CustomersTable = ({
   };
 
   return (
-    <div className="max-h-96 w-full overflow-auto">
+    <div className={cn('max-h-96 w-full overflow-auto', className)}>
       <Table className="w-full">
         <TableHeader>
           <TableRow>
