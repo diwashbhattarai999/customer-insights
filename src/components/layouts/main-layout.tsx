@@ -21,11 +21,11 @@ export default function MainLayout() {
   }
 
   return (
-    <div className="flex h-screen">
+    <div className="container flex h-screen">
       <Sidebar />
       <main className="h-full flex-1 overflow-y-auto bg-background">
         <Navbar />
-        <div className="px-10 py-5">
+        <div className="px-4 py-5 md:px-10">
           <Outlet />
         </div>
       </main>

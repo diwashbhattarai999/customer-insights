@@ -6,19 +6,19 @@ import { Grid, Settings, Users } from 'lucide-react';
 const useMenuLinks = () => {
   return [
     {
-      icon: <Grid className="size-6" />,
+      icon: <Grid className="size-5 md:size-6" />,
       text: 'Dashboard',
       alert: false,
       path: '/',
     },
     {
-      icon: <Users className="size-6" />,
+      icon: <Users className="size-5 md:size-6" />,
       text: 'Customer List',
       alert: false,
       path: '/customers',
     },
     {
-      icon: <Settings className="size-6" />,
+      icon: <Settings className="size-5 md:size-6" />,
       text: 'Settings',
       alert: false,
       path: '/settings',

@@ -16,6 +16,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
   Table,
   TableBody,
   TableCell,
@@ -23,19 +30,23 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useFetchCustomers } from '@/hooks/api/dashboard/useFetchCustomer';
-import { ICustomer } from '@/interfaces/dashboard/Customer';
+import { ICustomerDetails, TSegment } from '@/interfaces/dashboard/Customer';
+import { useFetchCustomers } from '@/pages/dashboard/hooks/useFetchCustomer';
 
-const CustomersList = () => {
+export const CustomersList = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [segmentFilter, setSegmentFilter] = useState<TSegment | 'All'>('All');
   const [sortConfig, setSortConfig] = useState<{
-    key: keyof ICustomer;
+    key: keyof ICustomerDetails;
     direction: 'asc' | 'desc';
   } | null>(null);
 
   const navigate = useNavigate();
 
-  const { data: customers } = useFetchCustomers();
+  const { data } = useFetchCustomers({
+    segment: segmentFilter !== 'All' ? segmentFilter : undefined,
+  });
+  const { customers } = data || { customers: [] };
 
   const sortedCustomers = useMemo(() => {
     const sortableCustomers = customers ? [...customers] : [];
@@ -59,7 +70,7 @@ const CustomersList = () => {
       customer.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const requestSort = (key: keyof ICustomer) => {
+  const requestSort = (key: keyof ICustomerDetails) => {
     let direction: 'asc' | 'desc' = 'asc';
     if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';
@@ -74,20 +85,41 @@ const CustomersList = () => {
       </CardHeader>
       <CardContent>
         <div className="w-full space-y-4">
-          <div className="flex items-center space-x-2">
-            <Input
-              className="max-w-sm"
-              placeholder="Search customers..."
-              type="text"
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-              }}
-            />
-            <Button size="icon">
-              <Search className="h-4 w-4" />
-            </Button>
+          <div className="flex items-center justify-between gap-4">
+            <div className="relative flex w-full items-center space-x-2">
+              <Input
+                className="w-full"
+                placeholder="Search customers..."
+                type="text"
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                }}
+              />
+              <Button className="absolute right-0" size={'icon'} variant="ghost">
+                <Search className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex w-full items-center space-x-4">
+              <Select
+                value={segmentFilter}
+                onValueChange={(value: TSegment | 'All') => {
+                  setSegmentFilter(value);
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Filter by Segment" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="All">All Segments</SelectItem>
+                  <SelectItem value="High">High</SelectItem>
+                  <SelectItem value="Medium">Medium</SelectItem>
+                  <SelectItem value="Low">Low</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
+
           <div className="max-h-96 w-full overflow-auto">
             <Table className="w-full">
               <TableHeader>
@@ -152,5 +184,3 @@ const CustomersList = () => {
     </Card>
   );
 };
-
-export default CustomersList;

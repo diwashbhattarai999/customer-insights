@@ -8,11 +8,11 @@ import {
   ServicesUsed,
   Transactions,
 } from '@/components/customer-details';
-import { useCustomerDetails } from '@/hooks/api/customerDetails/useFetchCustomerDetails';
+import { useFetchCustomerDetails } from '@/hooks/api/customerDetails/useFetchCustomerDetails';
 
 const CustomerDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const { data } = useCustomerDetails(id || '');
+  const { data } = useFetchCustomerDetails(id || '');
   const {
     personalInfo,
     servicesUsed,

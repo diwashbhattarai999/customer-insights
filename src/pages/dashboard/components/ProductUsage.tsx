@@ -17,7 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { useFetchProductUsage } from '@/hooks/api/dashboard/useFetchProductUsage';
+import { useFetchProductUsage } from '@/pages/dashboard/hooks/useFetchProductUsage';
 
 const chartConfig = {
   users: {

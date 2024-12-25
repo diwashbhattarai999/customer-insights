@@ -19,7 +19,9 @@ export interface ICustomerDetails {
   name: string;
   email: string;
   phone_number: string;
-  segment: 'High' | 'Low' | 'Barely';
+  segment: TSegment;
   signup_date: string;
   profile_image: string;
 }
+
+export type TSegment = 'High' | 'Low' | 'Barely';

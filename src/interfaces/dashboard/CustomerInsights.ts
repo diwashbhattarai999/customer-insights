@@ -2,9 +2,11 @@ export interface ICustomerInsights {
   wow_change: number;
   average_revenue: {
     current: number;
-    last_week: number;
+    last_period: number;
     revenue_change_percentage: number;
   };
-  current_week_customers: number;
-  last_week_customers: number;
+  current_period_customers: number;
+  last_period_customers: number;
 }
+
+export type TPeriod = 'day' | 'week' | 'month' | 'year';

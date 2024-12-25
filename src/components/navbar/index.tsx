@@ -1,29 +1,86 @@
-import { useState } from 'react';
-import { Link } from 'react-router';
+import { useRef, useState } from 'react';
 
-import { Bell, Search, Settings, User } from 'lucide-react';
+import { Bell, Menu, Search, Settings, X } from 'lucide-react';
 
-import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import useOnClickOutside from '@/hooks/use-on-click-outside';
 
-import { Button } from '../ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
-import { Input } from '../ui/input';
+import HamburgerMenu from './HamburgerMenu';
+import UserMenu from './UserMenu';
 
 export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [search, setSearch] = useState('');
 
+  const searchRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(searchRef, () => {
+    setSearchOpen(false);
+  });
+
   return (
-    <div className="flex items-center justify-between border-b border-border/30 px-10 py-7">
-      {/* Search Bar */}
-      <div className="flex w-full items-center gap-2">
-        <div className="relative w-full max-w-md">
+    <div className="relative border-b border-border/30 px-4 py-5 md:px-10 md:py-7">
+      <div className="flex items-center justify-between">
+        {/* Hamburger Menu */}
+        <Button
+          className="block p-2 text-muted-foreground md:hidden"
+          variant="ghost"
+          onClick={() => {
+            setMenuOpen(!menuOpen);
+          }}
+        >
+          {menuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
+        </Button>
+
+        {/* Notification, Settings, and Search Icons (Small Screens) */}
+        <div className="flex items-center justify-between gap-1 md:hidden">
+          <Button className="rounded-full p-2 text-muted-foreground" variant={'ghost'}>
+            <Bell className="size-5" />
+          </Button>
+          <Button
+            className="p-2 text-muted-foreground"
+            variant="ghost"
+            onClick={() => {
+              setSearchOpen(!searchOpen);
+            }}
+          >
+            <Search className="size-5" />
+          </Button>
+
+          <UserMenu />
+        </div>
+
+        {/* Absolute Search Box (Small Screens) */}
+        {searchOpen && (
+          <div
+            ref={searchRef}
+            className="absolute left-0 top-2 z-50 mx-2 rounded-lg border border-border bg-white p-3 shadow-md"
+          >
+            <div className="flex items-center gap-2">
+              <Input
+                className="flex-1"
+                placeholder="Search..."
+                type="text"
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
+              />
+              <Button
+                className="w-fit"
+                onClick={() => {
+                  console.log('Searching for:', search);
+                }}
+              >
+                <Search className="size-5" />
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* Full Search Bar (Large Screens) */}
+        <div className="hidden w-full max-w-md items-center gap-2 md:flex">
           <Input
             className="bg-muted/20"
             placeholder="Search..."
@@ -33,54 +90,32 @@ export default function Navbar() {
               setSearch(e.target.value);
             }}
           />
+          <Button
+            className="w-fit"
+            onClick={() => {
+              console.log('Searching for:', search);
+            }}
+          >
+            Search
+          </Button>
         </div>
-        <Button
-          className="w-fit"
-          onClick={() => {
-            console.log('Searching for:', search);
-          }}
-        >
-          Search
-          <Search className="size-5" />
-        </Button>
+
+        {/* Notification, Settings Icons, and User Menu (Large Screens) */}
+        <div className=" hidden items-center gap-4 md:flex">
+          <Button className="rounded-full p-2 text-muted-foreground" variant={'ghost'}>
+            <Bell className="size-5" />
+          </Button>
+          <Button className="rounded-full p-2 text-muted-foreground" variant={'ghost'}>
+            <Settings className="size-5" />
+          </Button>
+
+          {/* User Icon with Dropdown Menu */}
+          <UserMenu />
+        </div>
       </div>
 
-      {/* Actions */}
-      <div className="flex items-center space-x-4">
-        <Button className="rounded-full p-2 text-muted-foreground" variant={'ghost'}>
-          <Bell className="h-5 w-5" />
-        </Button>
-        <Button className="rounded-full p-2 text-muted-foreground" variant={'ghost'}>
-          <Settings className="h-5 w-5" />
-        </Button>
-
-        {/* Profile / Avatar */}
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex cursor-pointer items-center gap-2">
-            <User className="size-10 cursor-pointer rounded-full border p-1.5" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-52" sideOffset={5}>
-            {/* User Detail like name & email */}
-            <DropdownMenuLabel>
-              <div className="flex flex-col items-start">
-                <span className="text-base font-semibold">John Doe</span>
-                <span className="text-muted-foreground">diwashb999@gmail.com</span>
-              </div>
-            </DropdownMenuLabel>
-
-            <DropdownMenuSeparator />
-
-            <DropdownMenuGroup>
-              <DropdownMenuItem className="py-3">
-                <Link to="/profile">Profile</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="py-3">
-                <Link to="/settings">Settings</Link>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      {/* Sliding Hamburger Menu */}
+      <HamburgerMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
     </div>
   );
 }

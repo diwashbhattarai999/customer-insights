@@ -1,5 +1,5 @@
 import { IProductUsage } from '@/interfaces/dashboard/ProductUsage';
-import { fetchProductUsage } from '@/services/dashboard.service';
+import { fetchProductUsage } from '@/pages/dashboard/services/dashboard.service';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const useFetchProductUsage = () => {

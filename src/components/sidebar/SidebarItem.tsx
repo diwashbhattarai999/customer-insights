@@ -44,7 +44,7 @@ const SidebarItem = ({ icon, text, active, alert, onClick, disabled }: ISidebarI
         <span
           className={cn(
             'overflow-hidden text-nowrap text-foreground transition-all',
-            expanded ? 'ml-4 w-44' : '-ml-2 w-0'
+            expanded ? 'ml-4 w-40' : '-ml-2 w-0'
           )}
         >
           {text}

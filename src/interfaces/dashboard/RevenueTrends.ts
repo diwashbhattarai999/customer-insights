@@ -1,4 +1,4 @@
-export interface ITrends {
+export interface IRevenueTrends {
   period: string;
   summary: {
     total_customers: number;
