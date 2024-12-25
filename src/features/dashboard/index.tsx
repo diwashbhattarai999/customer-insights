@@ -17,7 +17,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col gap-8">
       <h1 className="font-bold text-secondary-foreground sm:text-xl">
-        Welcome back, <span className="text-secondary-foreground/90"> Diwash Bhattarai</span>
+        Welcome back, <span className="text-secondary-foreground/80"> Diwash Bhattarai</span>
       </h1>
 
       {/* Customer Insights */}
