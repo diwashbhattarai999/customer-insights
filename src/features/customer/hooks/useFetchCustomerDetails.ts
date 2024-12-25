@@ -1,19 +1,17 @@
 import {
-  IChurnProbability,
-  IPersonalInfo,
-  IProductRisk,
-  IRecommendedService,
-  IServiceUsed,
-  ITransaction,
-} from '@/interfaces/customers/CustomerDetails';
-import {
   fetchChurnProbability,
   fetchPersonalInfo,
   fetchProductRisk,
   fetchRecommendedService,
   fetchServicesUsed,
-  fetchTransactions,
-} from '@/services/customer.details.service';
+} from '@/features/customer/services/customer.details.service';
+import {
+  IChurnProbability,
+  IPersonalInfo,
+  IProductRisk,
+  IRecommendedService,
+  IServiceUsed,
+} from '@/interfaces/customers/CustomerDetails';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const useFetchCustomerDetails = (customerId: string | number) => {
@@ -54,15 +52,6 @@ export const useFetchCustomerDetails = (customerId: string | number) => {
   });
 
   const {
-    data: transactions,
-    isLoading: isLoadingTransactions,
-    error: errorTransactions,
-  } = useSuspenseQuery<ITransaction>({
-    queryKey: ['customer', customerId, 'transactions'],
-    queryFn: () => fetchTransactions(customerId),
-  });
-
-  const {
     data: productRisk,
     isLoading: isLoadingProductRisk,
     error: errorProductRisk,
@@ -77,7 +66,6 @@ export const useFetchCustomerDetails = (customerId: string | number) => {
     isLoadingServicesUsed,
     isLoadingRecommendedService,
     isLoadingChurnProbability,
-    isLoadingTransactions,
     isLoadingProductRisk,
   ].some((loading) => loading);
 
@@ -86,7 +74,6 @@ export const useFetchCustomerDetails = (customerId: string | number) => {
     errorServicesUsed ||
     errorRecommendedService ||
     errorChurnProbability ||
-    errorTransactions ||
     errorProductRisk;
 
   // Combine all data
@@ -95,7 +82,6 @@ export const useFetchCustomerDetails = (customerId: string | number) => {
     servicesUsed,
     recommendedService,
     churnProbability,
-    transactions,
     productRisk,
   };
 

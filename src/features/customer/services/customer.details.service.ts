@@ -6,6 +6,7 @@ import {
   IServiceUsed,
   ITransaction,
 } from '@/interfaces/customers/CustomerDetails';
+import { TPeriod } from '@/interfaces/dashboard/CustomerInsights';
 import { api } from '@/lib/api-client';
 
 /**
@@ -59,8 +60,20 @@ export const fetchChurnProbability = async (
  * @param customerId - The ID of the customer
  * @returns {Promise<ITransaction>} The transactions
  */
-export const fetchTransactions = async (customerId: string | number): Promise<ITransaction> => {
-  const { data } = await api.get<ITransaction>(`/customer/${customerId}/transactions`);
+export const fetchTransactions = async ({
+  customerId,
+  period = 'all',
+  amount,
+  anomalous,
+}: {
+  customerId: string | number;
+  period?: TPeriod;
+  amount?: number;
+  anomalous?: boolean;
+}): Promise<ITransaction> => {
+  const { data } = await api.get<ITransaction>(`/customer/${customerId}/transactions`, {
+    params: { amount, anomalous, period },
+  });
   return data;
 };
 

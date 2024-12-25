@@ -68,7 +68,9 @@ export const CustomerInsightsCards = () => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         <Card className="flex flex-col justify-between bg-blue-100">
           <CardHeader>
-            <CardTitle>Current Period Revenue</CardTitle>
+            <CardTitle>
+              Revenue {getPeriod() === 'Today' ? 'Today' : `This ${getPeriod()}`}
+            </CardTitle>
             <CardDescription>
               Performance
               {getPeriod() === 'Today' ? ' for ' : ' This '}
@@ -82,7 +84,10 @@ export const CustomerInsightsCards = () => {
 
         <Card className="flex flex-col justify-between bg-gray-100">
           <CardHeader>
-            <CardTitle>Last Period Revenue</CardTitle>
+            <CardTitle>
+              {/* Last Period Revenue */}
+              Revenue {getPeriod() === 'Today' ? 'Yesterday' : `Last ${getPeriod()}`}
+            </CardTitle>
             <CardDescription>Performance Last {getPeriod()}</CardDescription>
           </CardHeader>
           <CardContent>

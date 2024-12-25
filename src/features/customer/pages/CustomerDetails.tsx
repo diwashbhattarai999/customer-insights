@@ -7,20 +7,13 @@ import {
   ProductRisk,
   ServicesUsed,
   Transactions,
-} from '@/components/customer-details';
-import { useFetchCustomerDetails } from '@/hooks/api/customerDetails/useFetchCustomerDetails';
+} from '@/features/customer/components/customer-details';
+import { useFetchCustomerDetails } from '@/features/customer/hooks/useFetchCustomerDetails';
 
 const CustomerDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { data } = useFetchCustomerDetails(id || '');
-  const {
-    personalInfo,
-    servicesUsed,
-    recommendedService,
-    churnProbability,
-    transactions,
-    productRisk,
-  } = data;
+  const { personalInfo, servicesUsed, recommendedService, churnProbability, productRisk } = data;
 
   return (
     <div className="space-y-12">
@@ -35,7 +28,8 @@ const CustomerDetails = () => {
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         <ProductRisk productRisk={productRisk} />
-        <Transactions transactionData={transactions} />
+
+        <Transactions customerId={id || ''} />
       </div>
     </div>
   );

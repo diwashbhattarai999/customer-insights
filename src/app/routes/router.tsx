@@ -2,8 +2,8 @@ import { createBrowserRouter, createRoutesFromElements, Route } from 'react-rout
 
 import App from '@/app';
 import MainLayout from '@/components/layouts/main-layout';
-import CustomerDetails from '@/features/customer/pages/customer-details';
-import CustomerList from '@/features/customer/pages/customer-list';
+import CustomerDetails from '@/features/customer/pages/CustomerDetails';
+import CustomerList from '@/features/customer/pages/CustomerList';
 import Dashboard from '@/features/dashboard';
 
 import Forbidden from '../403';

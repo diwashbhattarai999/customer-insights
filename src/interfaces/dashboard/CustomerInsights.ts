@@ -9,4 +9,4 @@ export interface ICustomerInsights {
   last_period_customers: number;
 }
 
-export type TPeriod = 'day' | 'week' | 'month' | 'year';
+export type TPeriod = 'day' | 'week' | 'month' | 'year' | 'all';

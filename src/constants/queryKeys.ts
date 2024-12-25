@@ -3,4 +3,5 @@ export const QUERY_KEYS = {
   revenueTrends: 'revenueTrends',
   customers: 'customers',
   productUsage: 'productUsage',
+  transactions: 'transactions',
 };
