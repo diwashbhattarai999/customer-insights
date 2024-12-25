@@ -1,5 +1,6 @@
-import { LogOut, Settings2, User } from 'lucide-react';
+import { LogOut, Moon, Settings2, Sun, User } from 'lucide-react';
 
+import { useTheme } from '@/components/theme-provider';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -11,6 +12,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 const UserMenu = () => {
+  const { setTheme } = useTheme();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,6 +31,32 @@ const UserMenu = () => {
         <DropdownMenuItem>
           <Settings2 className="size-5" />
           Settings
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+        <DropdownMenuItem
+          onClick={() => {
+            setTheme('light');
+          }}
+        >
+          <Sun className="mr-2 h-4 w-4" />
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            setTheme('dark');
+          }}
+        >
+          <Moon className="mr-2 h-4 w-4" />
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            setTheme('system');
+          }}
+        >
+          <span className="mr-2 h-4 w-4">🖥️</span>
+          System
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>

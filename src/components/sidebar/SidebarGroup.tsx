@@ -40,7 +40,7 @@ const SidebarGroup = ({ children }: ISidebarGroupProps) => {
 
   return (
     <aside className="sticky inset-0 z-40 hidden h-screen md:block">
-      <nav className="flex h-full w-fit flex-col bg-sidebar px-[16px] py-6 shadow-sm">
+      <nav className="flex h-full w-fit flex-col bg-sidebar/40 px-[16px] py-6 shadow-sm dark:bg-sidebar">
         <div
           className={cn('relative flex items-center pb-10', {
             'justify-between': expanded,

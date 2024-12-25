@@ -35,13 +35,13 @@ const CustomerList = () => {
 
   return (
     <div className="w-full space-y-4">
-      <Card className="w-full">
-        <CardHeader>
+      <Card className="w-full border-none p-0 shadow-none">
+        <CardHeader className="px-0">
           <CardTitle>Customer List</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-0">
           {/* Filters and Search Section */}
-          <div className="flex items-center justify-between gap-4">
+          <div className="mb-4 flex items-center justify-between gap-4">
             {/* Search Box */}
             <div className="relative flex w-full items-center space-x-2">
               <Input

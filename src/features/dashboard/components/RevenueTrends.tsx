@@ -17,6 +17,7 @@ import {
   YAxis,
 } from 'recharts';
 
+import { useTheme } from '@/components/theme-provider';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
@@ -46,6 +47,9 @@ export const RevenueTrends = () => {
 
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -70,6 +74,7 @@ export const RevenueTrends = () => {
 
       {/* Cards Section */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {/* Total Customers */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Customers</CardTitle>
@@ -80,6 +85,8 @@ export const RevenueTrends = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Total Revenue */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
@@ -90,6 +97,8 @@ export const RevenueTrends = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Avg Transaction */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Avg Transaction</CardTitle>
@@ -100,6 +109,8 @@ export const RevenueTrends = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Anomaly Rate */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Anomaly Rate</CardTitle>
@@ -110,6 +121,8 @@ export const RevenueTrends = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Revenue Growth */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Revenue Growth</CardTitle>
@@ -124,6 +137,7 @@ export const RevenueTrends = () => {
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
+        {/* Customer Growth Trend */}
         <Card>
           <CardHeader>
             <CardTitle>Customer Growth Trend</CardTitle>
@@ -186,6 +200,7 @@ export const RevenueTrends = () => {
           </CardContent>
         </Card>
 
+        {/* Customer Segment Distribution */}
         <Card>
           <CardHeader>
             <CardTitle>Customer Segment Distribution</CardTitle>
@@ -214,6 +229,7 @@ export const RevenueTrends = () => {
           </CardContent>
         </Card>
 
+        {/* Revenue by Period */}
         <Card className="lg:col-span-2 xl:col-span-1">
           <CardHeader>
             <CardTitle>Revenue by Period</CardTitle>
@@ -244,6 +260,7 @@ export const RevenueTrends = () => {
                   }}
                 />
                 <Tooltip
+                  cursor={{ fill: isDark ? '#ffffff10' : '#00000010' }}
                   formatter={(value) => formatCurrency(value as number)}
                   labelFormatter={(value) => formatDate(value)}
                 />
@@ -294,6 +311,7 @@ export const RevenueTrends = () => {
                   }}
                 />
                 <Tooltip
+                  cursor={{ fill: isDark ? '#ffffff10' : '#00000010' }}
                   formatter={(value) => formatCurrency(value as number)}
                   labelFormatter={(value) => formatDate(value)}
                 />

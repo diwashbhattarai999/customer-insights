@@ -33,8 +33,8 @@ const SidebarItem = ({ icon, text, active, alert, onClick, disabled }: ISidebarI
     >
       <button
         className={cn(
-          'group relative my-1.5 flex w-fit cursor-pointer items-center gap-2 rounded-xl px-3 py-3.5 text-left font-medium capitalize text-muted-foreground transition-all hover:bg-accent/80',
-          { 'bg-accent text-primary': active }
+          'group relative my-2 flex w-fit cursor-pointer items-center gap-2 rounded-xl p-3 text-left font-medium capitalize text-muted-foreground transition-all hover:bg-primary hover:text-background',
+          { 'bg-primary text-background': active }
         )}
         onClick={onClick}
       >
@@ -43,8 +43,12 @@ const SidebarItem = ({ icon, text, active, alert, onClick, disabled }: ISidebarI
         {/* Text is shown when the sidebar is expanded and hidden when the sidebar is not expanded.*/}
         <span
           className={cn(
-            'overflow-hidden text-nowrap text-foreground transition-all',
-            expanded ? 'ml-4 w-40' : '-ml-2 w-0'
+            'overflow-hidden text-nowrap text-foreground transition-all group-hover:text-background',
+            {
+              'ml-4 w-40': expanded,
+              '-ml-2 w-0': !expanded,
+              'text-background': active,
+            }
           )}
         >
           {text}

@@ -10,6 +10,8 @@ import Forbidden from '../403';
 import NotFound from '../404';
 import ErrorPage from '../500';
 
+import SettingsRoutes from './settings.routes';
+
 /**
  * Router configuration for the application
  */
@@ -20,6 +22,8 @@ const router = createBrowserRouter(
         <Route element={<Dashboard />} path="/" />
         <Route element={<CustomerDetails />} path="/customers/:customerId" />
         <Route element={<CustomerList />} path="/customers" />
+
+        {SettingsRoutes()}
 
         {/* Error Pages */}
         <Route element={<Forbidden />} path="/403" />

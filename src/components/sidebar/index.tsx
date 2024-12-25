@@ -13,14 +13,11 @@ const Sidebar = () => {
   return (
     <SidebarGroup>
       {MENU_LINKS.map((item, index) => {
+        const isActive = pathname === item.path || pathname.startsWith(item.path + '/');
+
         return (
           <Link key={index} to={item.path}>
-            <SidebarItem
-              active={item.path === pathname}
-              alert={item.alert}
-              icon={item.icon}
-              text={item.text}
-            />
+            <SidebarItem active={isActive} alert={item.alert} icon={item.icon} text={item.text} />
           </Link>
         );
       })}

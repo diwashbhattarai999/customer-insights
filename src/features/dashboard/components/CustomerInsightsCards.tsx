@@ -66,47 +66,55 @@ export const CustomerInsightsCards = () => {
 
       {/* Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-        <Card className="flex flex-col justify-between bg-blue-100">
+        <Card className="flex flex-col justify-between bg-blue-100 dark:bg-blue-800">
           <CardHeader>
             <CardTitle>
               Revenue {getPeriod() === 'Today' ? 'Today' : `This ${getPeriod()}`}
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-secondary-foreground">
               Performance
               {getPeriod() === 'Today' ? ' for ' : ' This '}
               {getPeriod()}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-700">{formatCurrency(current)}</div>
+            <div className="text-2xl font-bold text-blue-700 dark:text-blue-300">
+              {formatCurrency(current)}
+            </div>
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col justify-between bg-gray-100">
+        <Card className="flex flex-col justify-between bg-gray-100 dark:bg-gray-800">
           <CardHeader>
             <CardTitle>
               {/* Last Period Revenue */}
               Revenue {getPeriod() === 'Today' ? 'Yesterday' : `Last ${getPeriod()}`}
             </CardTitle>
-            <CardDescription>Performance Last {getPeriod()}</CardDescription>
+            <CardDescription className="text-secondary-foreground">
+              Performance Last {getPeriod()}
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-700">{formatCurrency(last_period)}</div>
+            <div className="text-2xl font-bold text-gray-700 dark:text-gray-300">
+              {formatCurrency(last_period)}
+            </div>
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col justify-between bg-green-100">
+        <Card className="flex flex-col justify-between bg-green-100 dark:bg-green-800">
           <CardHeader>
             <CardTitle>WoW Change</CardTitle>
-            <CardDescription>Week-on-Week Customer Growth</CardDescription>
+            <CardDescription className="text-secondary-foreground">
+              Week-on-Week Customer Growth
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div
               className={`text-2xl font-bold ${
                 wow_change !== null && wow_change > 0
-                  ? 'text-green-700'
+                  ? 'text-green-700 dark:text-green-300'
                   : wow_change < 0
-                    ? 'text-red-700'
+                    ? 'text-red-700 dark:text-red-300'
                     : ''
               }`}
             >
@@ -115,10 +123,10 @@ export const CustomerInsightsCards = () => {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col justify-between bg-purple-100">
+        <Card className="flex flex-col justify-between bg-purple-100 dark:bg-purple-800">
           <CardHeader>
             <CardTitle>Revenue Change Percentage</CardTitle>
-            <CardDescription>
+            <CardDescription className="text-secondary-foreground">
               Compared to
               {getPeriod() === 'Today' ? '' : ' This '}
               {getPeriod()}
@@ -128,9 +136,9 @@ export const CustomerInsightsCards = () => {
             <div
               className={`text-2xl font-bold ${
                 revenue_change_percentage !== null && revenue_change_percentage > 0
-                  ? 'text-green-700'
+                  ? 'text-green-700 dark:text-green-300'
                   : revenue_change_percentage < 0
-                    ? 'text-red-700'
+                    ? 'text-red-700 dark:text-red-300'
                     : ''
               }`}
             >
@@ -139,16 +147,20 @@ export const CustomerInsightsCards = () => {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col justify-between bg-yellow-100">
+        <Card className="flex flex-col justify-between bg-yellow-100 dark:bg-yellow-600">
           <CardHeader>
             <CardTitle>Period Customers</CardTitle>
-            <CardDescription>Current vs Last {getPeriod()}</CardDescription>
+            <CardDescription className="text-secondary-foreground">
+              Current vs Last {getPeriod()}
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-xl font-bold text-yellow-700">
+            <div className="text-xl font-bold text-yellow-700 dark:text-yellow-100">
               Current: {current_period_customers}
             </div>
-            <div className="text-xl font-bold text-yellow-600">Last: {last_period_customers}</div>
+            <div className="text-xl font-bold text-yellow-600 dark:text-yellow-200">
+              Last: {last_period_customers}
+            </div>
           </CardContent>
         </Card>
       </div>
