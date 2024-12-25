@@ -25,8 +25,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useFetchRevenueTrends } from '@/features/dashboard/hooks/useFetchRevenueTrends';
 import { TPeriod } from '@/interfaces/dashboard/CustomerInsights';
-import { useFetchRevenueTrends } from '@/pages/dashboard/hooks/useFetchRevenueTrends';
 
 export const RevenueTrends = () => {
   const [selectedPeriod, setSelectedPeriod] = useState<TPeriod>('month');

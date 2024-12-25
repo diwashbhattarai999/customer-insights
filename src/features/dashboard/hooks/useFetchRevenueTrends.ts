@@ -1,7 +1,7 @@
 import { QUERY_KEYS } from '@/constants/queryKeys';
+import { fetchRevenueTrends } from '@/features/dashboard/services/dashboard.service';
 import { TPeriod } from '@/interfaces/dashboard/CustomerInsights';
 import { IRevenueTrends } from '@/interfaces/dashboard/RevenueTrends';
-import { fetchRevenueTrends } from '@/pages/dashboard/services/dashboard.service';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 interface IUseFetchRevenueTrends {

@@ -6,12 +6,12 @@ import {
   CustomersList,
   ProductUsage,
   RevenueTrends,
-} from '@/pages/dashboard/components';
+} from '@/features/dashboard/components';
 import {
   CustomerInsightsSkeleton,
   CustomerListSkeleton,
   RevenueTrendsSkeleton,
-} from '@/pages/dashboard/components/skeletons';
+} from '@/features/dashboard/components/skeletons';
 
 const Dashboard = () => {
   return (

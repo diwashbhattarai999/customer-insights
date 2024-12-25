@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { useFetchProductUsage } from '@/pages/dashboard/hooks/useFetchProductUsage';
+import { useFetchProductUsage } from '@/features/dashboard/hooks/useFetchProductUsage';
 
 export const ProductUsage = () => {
   const { data: usageData } = useFetchProductUsage();

@@ -30,8 +30,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useFetchCustomers } from '@/features/dashboard/hooks/useFetchCustomer';
 import { ICustomerDetails, TSegment } from '@/interfaces/dashboard/Customer';
-import { useFetchCustomers } from '@/pages/dashboard/hooks/useFetchCustomer';
 
 export const CustomersList = () => {
   const [searchTerm, setSearchTerm] = useState('');

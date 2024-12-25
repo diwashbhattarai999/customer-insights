@@ -8,8 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useFetchCustomerInsights } from '@/features/dashboard/hooks/useFetchCustomerInsights';
 import { TPeriod } from '@/interfaces/dashboard/CustomerInsights';
-import { useFetchCustomerInsights } from '@/pages/dashboard/hooks/useFetchCustomerInsights';
 
 export const CustomerInsightsCards = () => {
   const [period, setPeriod] = useState<TPeriod>('week');
@@ -24,11 +24,26 @@ export const CustomerInsightsCards = () => {
   const formatCurrency = (value: number | null) =>
     value === null ? 'N/A' : `$${value.toFixed(2)}`;
 
+  const getPeriod = () => {
+    switch (period) {
+      case 'day':
+        return 'Today';
+      case 'week':
+        return 'Week';
+      case 'month':
+        return 'Month';
+      case 'year':
+        return 'Year';
+      default:
+        return 'N/A';
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Filters */}
       <div className="flex flex-row items-center justify-between gap-4">
-        <h2 className="text-center text-lg font-bold text-secondary-foreground sm:text-xl md:text-left md:text-2xl">
+        <h2 className="text-center font-semibold text-secondary-foreground sm:text-xl md:text-left md:text-2xl">
           Customer Insights
         </h2>
         <Select
@@ -54,7 +69,11 @@ export const CustomerInsightsCards = () => {
         <Card className="flex flex-col justify-between bg-blue-100">
           <CardHeader>
             <CardTitle>Current Period Revenue</CardTitle>
-            <CardDescription className="font-semibold">Performance This Period</CardDescription>
+            <CardDescription>
+              Performance
+              {getPeriod() === 'Today' ? ' for ' : ' This '}
+              {getPeriod()}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-blue-700">{formatCurrency(current)}</div>
@@ -64,7 +83,7 @@ export const CustomerInsightsCards = () => {
         <Card className="flex flex-col justify-between bg-gray-100">
           <CardHeader>
             <CardTitle>Last Period Revenue</CardTitle>
-            <CardDescription className="font-semibold">Performance Last Period</CardDescription>
+            <CardDescription>Performance Last {getPeriod()}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-700">{formatCurrency(last_period)}</div>
@@ -74,9 +93,7 @@ export const CustomerInsightsCards = () => {
         <Card className="flex flex-col justify-between bg-green-100">
           <CardHeader>
             <CardTitle>WoW Change</CardTitle>
-            <CardDescription className="font-semibold">
-              Week-on-Week Customer Growth
-            </CardDescription>
+            <CardDescription>Week-on-Week Customer Growth</CardDescription>
           </CardHeader>
           <CardContent>
             <div
@@ -96,7 +113,11 @@ export const CustomerInsightsCards = () => {
         <Card className="flex flex-col justify-between bg-purple-100">
           <CardHeader>
             <CardTitle>Revenue Change Percentage</CardTitle>
-            <CardDescription className="font-semibold">Compared to Last Period</CardDescription>
+            <CardDescription>
+              Compared to
+              {getPeriod() === 'Today' ? '' : ' This '}
+              {getPeriod()}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div
@@ -116,7 +137,7 @@ export const CustomerInsightsCards = () => {
         <Card className="flex flex-col justify-between bg-yellow-100">
           <CardHeader>
             <CardTitle>Period Customers</CardTitle>
-            <CardDescription className="font-semibold">Current vs Last Period</CardDescription>
+            <CardDescription>Current vs Last {getPeriod()}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="text-xl font-bold text-yellow-700">

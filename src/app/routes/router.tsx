@@ -2,8 +2,9 @@ import { createBrowserRouter, createRoutesFromElements, Route } from 'react-rout
 
 import App from '@/app';
 import MainLayout from '@/components/layouts/main-layout';
-import CustomerDetails from '@/pages/customer/customer-details';
-import Dashboard from '@/pages/dashboard';
+import CustomerDetails from '@/features/customer/pages/customer-details';
+import CustomerList from '@/features/customer/pages/customer-list';
+import Dashboard from '@/features/dashboard';
 
 import Forbidden from '../403';
 import NotFound from '../404';
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route element={<MainLayout />}>
         <Route element={<Dashboard />} path="/" />
         <Route element={<CustomerDetails />} path="/customers/:id" />
+        <Route element={<CustomerList />} path="/customers" />
 
         {/* Error Pages */}
         <Route element={<Forbidden />} path="/403" />

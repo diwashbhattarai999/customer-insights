@@ -1,6 +1,6 @@
 import { QUERY_KEYS } from '@/constants/queryKeys';
+import { fetchCustomerInsights } from '@/features/dashboard/services/dashboard.service';
 import { ICustomerInsights, TPeriod } from '@/interfaces/dashboard/CustomerInsights';
-import { fetchCustomerInsights } from '@/pages/dashboard/services/dashboard.service';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 interface IUseFetchCustomerInsights {
