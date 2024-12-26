@@ -11,7 +11,6 @@ import {
   LineChart,
   Pie,
   PieChart,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -19,6 +18,12 @@ import {
 
 import { useTheme } from '@/components/theme-provider';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  ChartContainer,
+  ChartLegend,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/components/ui/chart';
 import {
   Select,
   SelectContent,
@@ -45,7 +50,7 @@ export const RevenueTrends = () => {
     return format(new Date(dateString), 'MMMM dd, yyyy');
   };
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))'];
 
   const { theme } = useTheme();
   const isDark = theme === 'dark';
@@ -142,8 +147,20 @@ export const RevenueTrends = () => {
           <CardHeader>
             <CardTitle>Customer Growth Trend</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer height={300} width="100%">
+          <CardContent className="flex-1">
+            <ChartContainer
+              className="size-full"
+              config={{
+                new_customers: {
+                  label: 'New Customers',
+                  color: 'hsl(var(--chart-1))',
+                },
+                cumulative_customers: {
+                  label: 'Cumulative Customers',
+                  color: 'hsl(var(--chart-2))',
+                },
+              }}
+            >
               <LineChart
                 data={trends?.customer_trends.count_trend || []}
                 margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
@@ -151,13 +168,9 @@ export const RevenueTrends = () => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
                   dataKey="period"
+                  label={{ value: 'Time Period', position: 'bottom' }}
                   tickFormatter={(value) => formatDate(value)}
-                  label={{
-                    value: 'Time Period',
-                    position: 'bottom',
-                    offset: -5,
-                    style: { fontSize: 12, fontWeight: 'bold' },
-                  }}
+                  tickMargin={8}
                 />
                 <YAxis
                   yAxisId="left"
@@ -176,37 +189,37 @@ export const RevenueTrends = () => {
                     style: { fontSize: 12, fontWeight: 'bold' },
                   }}
                 />
-                <Tooltip
-                  formatter={(value) => value.toLocaleString()}
+                <ChartTooltip
+                  content={<ChartTooltipContent />}
                   labelFormatter={(value) => formatDate(value)}
                 />
-                <Legend align="left" verticalAlign="bottom" />
                 <Line
                   dataKey="new_customers"
+                  dot={false}
                   name="New Customers"
-                  stroke="#8884d8"
-                  type="monotone"
+                  stroke="hsl(var(--chart-1))"
+                  strokeWidth={2}
                   yAxisId="left"
                 />
                 <Line
                   dataKey="cumulative_customers"
+                  dot={false}
                   name="Cumulative Customers"
-                  stroke="#82ca9d"
-                  type="monotone"
+                  stroke="hsl(var(--chart-2))"
+                  strokeWidth={2}
                   yAxisId="right"
                 />
               </LineChart>
-            </ResponsiveContainer>
+            </ChartContainer>
           </CardContent>
         </Card>
 
-        {/* Customer Segment Distribution */}
         <Card>
           <CardHeader>
             <CardTitle>Customer Segment Distribution</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer height={300} width="100%">
+            <ChartContainer className="h-[300px] w-full" config={{}}>
               <PieChart>
                 <Pie
                   label
@@ -214,7 +227,6 @@ export const RevenueTrends = () => {
                   cy="50%"
                   data={trends?.customer_trends.segment_distribution || []}
                   dataKey="count"
-                  fill="#8884d8"
                   nameKey="segment"
                   outerRadius={80}
                 >
@@ -222,10 +234,10 @@ export const RevenueTrends = () => {
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <ChartTooltip content={<ChartTooltipContent />} />
                 <Legend />
               </PieChart>
-            </ResponsiveContainer>
+            </ChartContainer>
           </CardContent>
         </Card>
 
@@ -235,96 +247,165 @@ export const RevenueTrends = () => {
             <CardTitle>Revenue by Period</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer height={300} width="100%">
-              <BarChart
+            <ChartContainer className="h-[300px] w-full" config={{}}>
+              <LineChart
                 data={trends?.revenue_trends.revenue_by_period || []}
                 margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
                   dataKey="period"
+                  label={{ value: 'Time Period', position: 'bottom' }}
                   tickFormatter={(value) => formatDate(value)}
-                  label={{
-                    value: 'Time Period',
-                    position: 'bottom',
-                    offset: -5,
-                    style: { fontSize: 12, fontWeight: 'bold' },
-                  }}
                 />
                 <YAxis
                   label={{
                     value: 'Revenue',
                     angle: -90,
-                    position: 'insideLeft',
                     style: { fontSize: 12, fontWeight: 'bold' },
                   }}
                 />
                 <Tooltip
+                  content={<ChartTooltipContent />}
                   cursor={{ fill: isDark ? '#ffffff10' : '#00000010' }}
-                  formatter={(value) => formatCurrency(value as number)}
                   labelFormatter={(value) => formatDate(value)}
                 />
                 <Legend align="left" verticalAlign="bottom" />
-                <Bar dataKey="total_revenue" fill="#8884d8" name="Total Revenue" />
-                <Bar dataKey="average_transaction" fill="#82ca9d" name="Avg Transaction" />
-              </BarChart>
-            </ResponsiveContainer>
+
+                <Line
+                  dataKey="total_revenue"
+                  dot={false}
+                  name="Total Revenue"
+                  stroke="hsl(var(--chart-1))"
+                  strokeWidth={2}
+                />
+                <Line
+                  dataKey="average_transaction"
+                  dot={false}
+                  name="Avg Transaction"
+                  stroke="hsl(var(--chart-2))"
+                  strokeWidth={2}
+                />
+              </LineChart>
+            </ChartContainer>
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-3">
+        {/* Product Performance */}
+        <Card className="xl:col-span-3">
           <CardHeader>
             <CardTitle>Product Performance</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer height={450} width="100%">
+          <CardContent className="w-full">
+            <ChartContainer
+              className="h-[450px] w-full"
+              config={{
+                product__category: {
+                  label: 'Product Category',
+                  color: 'hsl(var(--chart-1))',
+                },
+                revenue: {
+                  label: 'Total Revenue',
+                  color: 'hsl(var(--chart-2))',
+                },
+                transaction_count: {
+                  label: 'Transaction Count',
+                  color: 'hsl(var(--chart-3))',
+                },
+              }}
+            >
               <BarChart
                 data={trends?.revenue_trends.product_performance || []}
                 margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
+
+                {/* X-Axis with both Date and Category */}
                 <XAxis
                   dataKey="period"
-                  tickFormatter={(value) => formatDate(value)}
-                  label={{
-                    value: 'Time Period',
-                    position: 'bottom',
-                    offset: 10,
-                    style: { fontSize: 14, fontWeight: 'bold' },
+                  tickFormatter={(value, index) => {
+                    // Format the label to show date and category together
+                    const category =
+                      trends?.revenue_trends.product_performance[index]?.product__category || '';
+                    return `${formatDate(value)} - ${category}`;
                   }}
                 />
+
                 <YAxis
-                  yAxisId="left"
                   label={{
-                    value: 'Revenue',
+                    value: 'Revenue & Transaction Count',
                     angle: -90,
-                    style: { fontSize: 14, fontWeight: 'bold' },
+                    position: 'insideLeft',
                   }}
                 />
-                <YAxis
-                  orientation="right"
-                  yAxisId="right"
-                  label={{
-                    value: 'Transaction Count',
-                    angle: 90,
-                    style: { fontSize: 14, fontWeight: 'bold' },
-                  }}
-                />
+
+                {/* Custom Tooltip with Category, Date, Revenue, and Transaction Count */}
                 <Tooltip
-                  cursor={{ fill: isDark ? '#ffffff10' : '#00000010' }}
-                  formatter={(value) => formatCurrency(value as number)}
-                  labelFormatter={(value) => formatDate(value)}
+                  content={(props) => {
+                    const { active, payload } = props;
+                    if (active && payload && payload.length) {
+                      const { period, product__category, revenue, transaction_count } =
+                        payload[0].payload;
+                      return (
+                        <div className="rounded-md bg-white p-2 shadow-md">
+                          <div>
+                            <strong>Period:</strong> {formatDate(period)}
+                          </div>
+                          <div>
+                            <strong>Category:</strong> {product__category}
+                          </div>
+                          <div>
+                            <strong>Revenue:</strong> {formatCurrency(revenue)}
+                          </div>
+                          <div>
+                            <strong>Transaction Count:</strong> {transaction_count}
+                          </div>
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
                 />
-                <Legend align="left" verticalAlign="bottom" />{' '}
-                <Bar dataKey="revenue" fill="#8884d8" name="Revenue" yAxisId="left" />
-                <Bar
-                  dataKey="transaction_count"
-                  fill="#82ca9d"
-                  name="Transaction Count"
-                  yAxisId="right"
+
+                {/* Custom Legend */}
+                <ChartLegend
+                  align="left"
+                  content={() => (
+                    <div className="flex space-x-2">
+                      <div className="flex items-center">
+                        <div
+                          className="mr-1 h-3 w-3"
+                          style={{
+                            backgroundColor: 'hsl(var(--chart-2))', // Color for Revenue
+                          }}
+                        ></div>
+                        <span>Revenue</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div
+                          className="mr-1 h-3 w-3"
+                          style={{
+                            backgroundColor: 'hsl(var(--chart-3))', // Color for Transaction Count
+                          }}
+                        ></div>
+                        <span>Transaction Count</span>
+                      </div>
+                    </div>
+                  )}
                 />
+
+                {/* Render stacked Bar for each period */}
+                {['revenue', 'transaction_count'].map((key, index) => (
+                  <Bar
+                    key={key}
+                    dataKey={key}
+                    fill={`hsl(var(--chart-${index + 2}))`}
+                    name={key === 'revenue' ? 'Revenue' : 'Transaction Count'}
+                    stackId="stack"
+                  />
+                ))}
               </BarChart>
-            </ResponsiveContainer>
+            </ChartContainer>
           </CardContent>
         </Card>
       </div>

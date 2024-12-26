@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 import { Search } from 'lucide-react';
 
@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { CustomersTable } from '@/features/dashboard/components/customer-list/CustomersTable';
+import { CustomerListSkeleton } from '@/features/dashboard/components/skeletons';
 import { ICustomerDetails, TSegment } from '@/interfaces/dashboard/Customer';
 import { TPeriod } from '@/interfaces/dashboard/CustomerInsights';
 
@@ -89,22 +90,26 @@ const CustomerList = () => {
                   <SelectValue placeholder="Filter by Period" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="month">This Month</SelectItem>
+                  <SelectItem value="day">Today</SelectItem>
                   <SelectItem value="week">This Week</SelectItem>
+                  <SelectItem value="month">This Month</SelectItem>
+                  <SelectItem value="all">All</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
           {/* Customers Table */}
-          <CustomersTable
-            className="max-h-[calc(100vh-18rem)]"
-            periodFilter={periodFilter}
-            requestSort={requestSort}
-            searchTerm={searchTerm}
-            segmentFilter={segmentFilter}
-            sortConfig={sortConfig}
-          />
+          <Suspense fallback={<CustomerListSkeleton />}>
+            <CustomersTable
+              className="max-h-[calc(100vh-18rem)]"
+              periodFilter={periodFilter}
+              requestSort={requestSort}
+              searchTerm={searchTerm}
+              segmentFilter={segmentFilter}
+              sortConfig={sortConfig}
+            />
+          </Suspense>
         </CardContent>
       </Card>
     </div>

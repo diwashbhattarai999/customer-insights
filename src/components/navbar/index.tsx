@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import { Bell, Menu, Search, Settings, X } from 'lucide-react';
+import { Bell, Menu, Search, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -104,9 +104,6 @@ export default function Navbar() {
         <div className=" hidden items-center gap-4 md:flex">
           <Button className="rounded-full p-2 text-muted-foreground" variant={'ghost'}>
             <Bell className="size-5" />
-          </Button>
-          <Button className="rounded-full p-2 text-muted-foreground" variant={'ghost'}>
-            <Settings className="size-5" />
           </Button>
 
           {/* User Icon with Dropdown Menu */}
